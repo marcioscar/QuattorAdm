@@ -4,7 +4,7 @@ import { NavLink, useLoaderData } from "@remix-run/react";
 import { useState } from "react";
 import { Navbar } from "~/components/Navbar";
 import type { tipoRec } from "~/utils/types.server";
-import { format } from "date-fns";
+// import { format } from "date-fns";
 import { getReceitas } from "../../utils/receitas.server";
 
 export const loader: LoaderFunction = async ({ request }) => {
@@ -17,6 +17,7 @@ export default function Receitas() {
   const receitaFilter = receitas?.filter((receitas: { centro: string }) =>
     receitas.centro.toLowerCase().includes(filtrar.toLowerCase())
   );
+
   return (
     <>
       <Navbar />
@@ -67,7 +68,7 @@ export default function Receitas() {
                 Centro
               </th>
               <th scope="col" className="px-6 py-3">
-                Data
+                Referência
               </th>
               <th scope="col" className="px-6 py-3 text-right">
                 Valor
@@ -90,7 +91,8 @@ export default function Receitas() {
                   {rec.centro}
                 </th>
                 <td className="px-6 py-3 ">
-                  {format(new Date(rec.data), "dd-MMM")}
+                  {rec.referencia}
+                  {/* {format(new Date(rec.data), "dd-MMM")} */}
                 </td>
 
                 <td className="px-6  text-right ">

@@ -1,29 +1,28 @@
 import type { LoaderFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { NavLink, useLoaderData } from "@remix-run/react";
-import { Navbar } from "~/components/Navbar";
-import { getDespesas } from "~/utils/despesas.server";
-import { format } from "date-fns";
-import type { tipoDesp } from "~/utils/types.server";
 import { useState } from "react";
+import { Navbar } from "~/components/Navbar";
+import { getFuncionarios } from "~/utils/folha.server";
+import { Edit, Money } from "~/utils/icons";
+import type { tipoFunc } from "~/utils/types.server";
 
 export const loader: LoaderFunction = async ({ request }) => {
-  const despesas = await getDespesas();
-  return json({ despesas });
+  const funcionarios = await getFuncionarios();
+  return json({ funcionarios });
 };
 
-export default function Despesas() {
-  const { despesas } = useLoaderData();
+export default function Folha() {
+  const { funcionarios } = useLoaderData();
   const [filtrar, setFiltrar] = useState("");
-  const despesaFilter = despesas?.filter((despesas: { conta: string }) =>
-    despesas.conta.toLowerCase().includes(filtrar.toLowerCase())
+  const funcFilter = funcionarios?.filter((funcionarios: { nome: string }) =>
+    funcionarios.nome.toLowerCase().includes(filtrar.toLowerCase())
   );
-
   return (
     <>
       <Navbar />
       <h1 className="flex  justify-center font-bold text-slate-500 text-xl">
-        DESPESAS
+        FOLHA DE PAGAMENTO
       </h1>
       <div className="flex justify-around items-center">
         <div className="relative w-1/4">
@@ -54,7 +53,7 @@ export default function Despesas() {
         </div>
 
         <NavLink
-          className=" flex mr-4  focus:outline-none text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:ring-yellow-300  rounded-lg text-sm px-5 py-2.5  mb-2 dark:focus:ring-yellow-900"
+          className=" flex mr-4  focus:outline-none text-white bg-green-500 hover:bg-green-800 focus:ring-4 focus:ring-yellow-300  rounded-lg text-sm px-5 py-2.5  mb-2 dark:focus:ring-yellow-900"
           to="new"
         >
           Nova
@@ -62,20 +61,20 @@ export default function Despesas() {
       </div>
 
       <div className="bg-slate-100 flex justify-center ">
-        <table className="w-3/4 text-sm text-left text-gray-500 dark:text-gray-400">
-          <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <table className="w-3/4 mt-4 text-sm text-left text-gray-500 ">
+          <thead className="text-xs text-gray-700 uppercase  ">
             <tr>
               <th scope="col" className="px-6 py-3">
-                Conta
+                Nome
               </th>
               <th scope="col" className="px-6 py-3">
-                Data
+                Função
               </th>
               <th scope="col" className="px-6 py-3 text-right">
-                Tipo
+                Modalidade
               </th>
               <th scope="col" className="px-6 py-3 text-right">
-                Valor
+                Pago
               </th>
               <th scope="col" className="px-6 py-3">
                 <span className="sr-only">Editar</span>
@@ -83,37 +82,41 @@ export default function Despesas() {
             </tr>
           </thead>
           <tbody>
-            {despesaFilter.map((desp: tipoDesp) => (
+            {funcFilter.map((func: tipoFunc) => (
               <tr
-                key={desp.id}
+                key={func.id}
                 className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
               >
                 <th
                   scope="row"
                   className="px-6  font-medium text-gray-900 dark:text-white whitespace-nowrap"
                 >
-                  {desp.conta}
+                  {func.nome}
                 </th>
-                <td className="px-6 py-3 ">{desp.referencia}</td>
-                <td className="px-6  text-right">{desp.tipo}</td>
-                <td className="px-6  text-right ">
-                  {desp.valor.toLocaleString("pt-br", {
-                    minimumFractionDigits: 2,
-                  })}
+                <td className="px-6 py-3 ">{func.funcao}</td>
+                <td className="px-6 py-3 ">{func.modalidade}</td>
+                <td className="px-6 py-3 text-center ">
+                  <input
+                    type="checkbox"
+                    readOnly
+                    checked={!!func.salarios.map((s) => s.pago).pop()}
+                  ></input>
                 </td>
-                <td className="px-6  py-3 text-right">
+
+                <td className="px-2 py-3 text-right">
                   <NavLink
-                    to={`${desp.id}`}
-                    className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                    to={`salario/${func.id}`}
+                    className="font-medium text-green-600 dark:text-blue-500 hover:underline"
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="20"
-                      height="20"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M8.424 12.282l4.402 4.399-5.826 1.319 1.424-5.718zm15.576-6.748l-9.689 9.804-4.536-4.536 9.689-9.802 4.536 4.534zm-6 8.916v6.55h-16v-12h6.743l1.978-3h-10.721v16h20v-10.573l-2 2.023z" />
-                    </svg>
+                    <Money />
+                  </NavLink>
+                </td>
+                <td className="px-4  py-3 text-right">
+                  <NavLink
+                    to={`${func.id}`}
+                    className="font-medium text-stone-500 "
+                  >
+                    <Edit />
                   </NavLink>
                 </td>
               </tr>

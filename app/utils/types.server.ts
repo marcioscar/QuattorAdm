@@ -12,6 +12,7 @@ export type tipoDesp = {
   data: Date;
   tipo: string;
   valor: number;
+  referencia: string;
 };
 
 export type ReceitaForm = {
@@ -19,6 +20,7 @@ export type ReceitaForm = {
   data: Date;
   valor: string;
   id?: string;
+  referencia: string;
 };
 
 export type tipoRec = {
@@ -26,4 +28,43 @@ export type tipoRec = {
   centro: string;
   data: Date;
   valor: number;
+  referencia: string;
+};
+
+export type tipoFunc = {
+  id: string;
+  conta: string;
+  funcao: string;
+  modalidade: string;
+  nome: string;
+  salarios: FolhaSalarios[];
+};
+export type FolhaSalarios = {
+  data: Date;
+  decimo: number;
+  ferias: number;
+  fgts: number;
+  pago: Boolean;
+  sal_id: string;
+  valor: number;
+  referencia: string;
+};
+export type funcForm = {
+  id: string;
+  conta: string;
+  funcao: string;
+  modalidade: string;
+  nome: string;
+};
+
+export type salFrom = {
+  data: Date;
+  decimo: number;
+  ferias: number;
+  fgts: number;
+  pago: Boolean;
+  sal_id: string;
+  valor: number;
+  referencia?: string;
+  id: string;
 };

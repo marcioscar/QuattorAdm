@@ -20,16 +20,40 @@ model User {
 }
 
 model despesas {
-  id    String   @id @default(auto()) @map("_id") @db.ObjectId
-  conta String
-  data  DateTime
-  tipo  String
-  valor Float
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  conta      String
+  data       DateTime
+  tipo       String
+  valor      Float
+  referencia String?
 }
 
 model receitas {
-  id     String   @id @default(auto()) @map("_id") @db.ObjectId
-  centro String
-  data   DateTime @db.Date
-  valor  Float
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  centro     String
+  data       DateTime @db.Date
+  valor      Float
+  referencia String?
+}
+
+type FolhaSalarios {
+  data       DateTime? @db.Date
+  decimo     Float?
+  ferias     Float?
+  fgts       Float?
+  pago       Boolean?
+  sal_id     String?
+  valor      Float?
+  referencia String?
+}
+
+
+
+model folha {
+  id         String          @id @default(auto()) @map("_id") @db.ObjectId
+  conta      String
+  funcao     String
+  modalidade String
+  nome       String
+  salarios   FolhaSalarios[]
 }

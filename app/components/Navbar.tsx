@@ -12,14 +12,14 @@ export function Navbar() {
             alt="Quattor Logo"
           />
         </NavLink>
-        <div className="flex space-x-8">
+        <div className="flex space-x-8 font-light">
           <NavLink
             to="/"
             className={({ isActive }) =>
               isActive ? activeClassName : undefined
             }
           >
-            Home
+            HOME
           </NavLink>
           <NavLink
             to="/despesas"
@@ -27,7 +27,7 @@ export function Navbar() {
               isActive ? activeClassName : undefined
             }
           >
-            Despesas
+            DESPESAS
           </NavLink>
           <NavLink
             to="/receitas"
@@ -35,7 +35,7 @@ export function Navbar() {
               isActive ? activeClassName : undefined
             }
           >
-            Receitas
+            RECEITAS
           </NavLink>
           <NavLink
             to="/folha"
@@ -43,7 +43,7 @@ export function Navbar() {
               isActive ? activeClassName : undefined
             }
           >
-            Folha
+            FOLHA
           </NavLink>
         </div>
       </div>
