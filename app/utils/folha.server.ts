@@ -1,5 +1,5 @@
 import { prisma } from "./prisma.server";
-import type { funcForm, ReceitaForm, salFrom } from "./types.server";
+import type { funcForm } from "./types.server";
 import { format, subMonths } from "date-fns";
 import { pt } from "date-fns/locale";
 
@@ -120,24 +120,41 @@ export const createSalario = async (salario: any) => {
       },
     },
   });
-  // const newSalario = await prisma.folha.update({
-  //   where: {
-  //     id: salario.id,
-  //   },
-  //   data: {
-  //     salarios: {
-  //       push: {
-  //         data: new Date(),
-  //         valor: salario.valor,
-  //         sal_id: Math.random().toString(36).slice(-5),
-  //         pago: false,
-  //         // referencia: referencia,
-  //         fgts: salario.valor,
-  //         ferias: salario.valor,
-  //         decimo: salario.valor,
-  //       },
-  //     },
-  //   },
-  // });
-  // return { newSalario };
+};
+export const deleteSalario = async (salario: any) => {
+  console.log(salario);
+  return prisma.folha.update({
+    where: {
+      id: salario.id,
+    },
+    data: {
+      salarios: {
+        deleteMany: {
+          where: {
+            sal_id: salario.sal_id,
+          },
+        },
+      },
+    },
+  });
+};
+export const pagarSalario = async (salario: any) => {
+  console.log(salario);
+  return prisma.folha.update({
+    where: {
+      id: salario.id,
+    },
+    data: {
+      salarios: {
+        updateMany: {
+          where: {
+            sal_id: salario.sal_id,
+          },
+          data: {
+            pago: true,
+          },
+        },
+      },
+    },
+  });
 };

@@ -4,7 +4,7 @@ import { NavLink, useLoaderData } from "@remix-run/react";
 import { useState } from "react";
 import { Navbar } from "~/components/Navbar";
 import { getFuncionarios } from "~/utils/folha.server";
-import { Edit, Money } from "~/utils/icons";
+import { Direita, Edit, Money } from "~/utils/icons";
 import type { tipoFunc } from "~/utils/types.server";
 
 export const loader: LoaderFunction = async ({ request }) => {
@@ -53,7 +53,7 @@ export default function Folha() {
         </div>
 
         <NavLink
-          className=" flex mr-4  focus:outline-none text-white bg-green-500 hover:bg-green-800 focus:ring-4 focus:ring-yellow-300  rounded-lg text-sm px-5 py-2.5  mb-2 dark:focus:ring-yellow-900"
+          className=" flex mr-4  focus:outline-none text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:ring-yellow-300  rounded-lg text-sm px-5 py-2.5  mb-2 dark:focus:ring-yellow-900"
           to="new"
         >
           Nova
@@ -87,11 +87,33 @@ export default function Folha() {
                 key={func.id}
                 className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
               >
-                <th
-                  scope="row"
-                  className="px-6  font-medium text-gray-900 dark:text-white whitespace-nowrap"
-                >
-                  {func.nome}
+                <th scope="row" className="px-6  whitespace-nowrap">
+                  <div className="pl-3">
+                    <div className=" text-gray-800">{func.nome}</div>
+                    <div className=" flex items-center font-light text-xs text-blue-500">
+                      {
+                        // @ts-ignore
+                        func.salarios
+                          .map((s) => s.valor)
+                          .pop()
+                          .toLocaleString("pt-br", {
+                            minimumFractionDigits: 2,
+                          })
+                      }
+                      <Direita />
+                      <div className="text-green-600">
+                        {
+                          // @ts-ignore
+                          func.salarios
+                            .map((s) => s.valor + s.fgts + s.ferias + s.decimo)
+                            .pop()
+                            .toLocaleString("pt-br", {
+                              minimumFractionDigits: 2,
+                            })
+                        }
+                      </div>
+                    </div>
+                  </div>
                 </th>
                 <td className="px-6 py-3 ">{func.funcao}</td>
                 <td className="px-6 py-3 ">{func.modalidade}</td>
