@@ -3,7 +3,7 @@ import { NavLink } from "@remix-run/react";
 export function Navbar() {
   const activeClassName = "text-blue-600";
   return (
-    <nav className="bg-gray-100 border-gray-200 px-2 mb-4 sm:px-4 py-2.5 rounded dark:bg-gray-800">
+    <nav className="bg-stone-100 border-gray-200 px-2 mb-4 sm:px-4 py-2.5 rounded ">
       <div className="container flex flex-wrap justify-between items-center mx-auto">
         <NavLink to="/" className="flex items-center">
           <img

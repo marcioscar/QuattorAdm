@@ -61,9 +61,9 @@ export default function Despesas() {
         </NavLink>
       </div>
 
-      <div className="bg-slate-100 flex justify-center ">
-        <table className="w-3/4 text-sm text-left text-gray-500 dark:text-gray-400">
-          <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+      <div className="flex mt-4 justify-center ">
+        <table className="w-3/4 text-sm text-left border-l-2 border-r-2 border-slate-100 text-gray-500 ">
+          <thead className="text-xs text-gray-700 uppercase bg-stone-100 ">
             <tr>
               <th scope="col" className="px-6 py-3">
                 Conta
@@ -86,11 +86,11 @@ export default function Despesas() {
             {despesaFilter.map((desp: tipoDesp) => (
               <tr
                 key={desp.id}
-                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+                className="bg-white border-b  hover:bg-gray-50 "
               >
                 <th
                   scope="row"
-                  className="px-6  font-medium text-gray-900 dark:text-white whitespace-nowrap"
+                  className="px-6  font-medium text-gray-900 whitespace-nowrap"
                 >
                   {desp.conta}
                 </th>

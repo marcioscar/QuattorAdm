@@ -60,9 +60,9 @@ export default function Receitas() {
         </NavLink>
       </div>
 
-      <div className="bg-slate-100 flex justify-center ">
-        <table className="w-3/4 text-sm text-left text-gray-500 dark:text-gray-400">
-          <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+      <div className="flex justify-center ">
+        <table className="w-3/4 text-sm text-left mt-4 text-gray-500 border-l-2 border-r-2 border-slate-100">
+          <thead className="text-xs text-gray-700 uppercase bg-stone-100 dark:bg-gray-700 dark:text-gray-400">
             <tr>
               <th scope="col" className="px-6 py-3">
                 Centro

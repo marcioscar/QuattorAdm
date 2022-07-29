@@ -2,6 +2,7 @@ import { prisma } from "./prisma.server";
 import type { funcForm } from "./types.server";
 import { format, subMonths } from "date-fns";
 import { pt } from "date-fns/locale";
+import _ from "lodash";
 
 //sal_id: Math.random().toString(36).slice(-5),
 
@@ -25,18 +26,38 @@ export const groupReceitasAgrupadas = async (ref: string) => {
     },
   });
 };
-// export const groupReceitasAgrupadas = async (ref: string) => {
-//   return prisma.receitas.aggregate({
-//     _sum: {
-//       valor: true,
-//     },
-//     where: {
-//       referencia: {
-//         contains: ref,
-//       },
-//     },
-//   });
-// };
+
+export const groupSalarioAreas = async (ref: string) => {
+  const sal = await prisma.folha.aggregateRaw({
+    pipeline: [{ $unwind: "$salarios" }],
+  });
+  const salFilter = _.filter(sal, ["salarios.referencia", ref]);
+  let total = _(salFilter)
+    .groupBy("modalidade")
+    .map((objs, key) => {
+      return {
+        mod: key,
+        valor: _.sumBy(objs, "salarios.valor"),
+      };
+    })
+    .value();
+  return _.orderBy(total, ["valor"], ["desc"]);
+};
+
+export const groupSalario = async () => {
+  return prisma.folha.aggregateRaw({
+    pipeline: [
+      { $unwind: "$salarios" },
+      {
+        $group: {
+          _id: "$salarios.referencia",
+          salario: { $sum: "$salarios.valor" },
+        },
+      },
+    ],
+  });
+};
+
 export const ReceitasMes = async (ref: string) => {
   return prisma.receitas.findMany({
     where: {
@@ -96,7 +117,7 @@ export const deleteFuncionario = async (funcionario: funcForm) => {
 export const createSalario = async (salario: any) => {
   const dt = new Date(salario.data);
   const dataAtual = new Date(dt.valueOf() + dt.getTimezoneOffset() * 60 * 1000);
-  const referencia = format(subMonths(new Date(salario.data), 1), "MMM-yyyy", {
+  const referencia = format(new Date(salario.data), "MMM-yyyy", {
     locale: pt,
   });
   const valor = parseFloat(salario.valor.replace(".", "").replace(",", "."));

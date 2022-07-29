@@ -60,25 +60,24 @@ export default function Folha() {
         </NavLink>
       </div>
 
-      <div className="bg-slate-100 flex justify-center ">
-        <table className="w-3/4 mt-4 text-sm text-left text-gray-500 ">
-          <thead className="text-xs text-gray-700 uppercase  ">
+      <div className=" flex justify-center ">
+        <table className="w-3/4 mt-4 text-sm text-left border-l-2 border-r-2 border-slate-100 text-gray-500 ">
+          <thead className="text-xs text-gray-700 uppercase bg-stone-100  ">
             <tr>
-              <th scope="col" className="px-6 py-3">
+              <th scope="col" className="px-10 py-3 text-left">
                 Nome
               </th>
               <th scope="col" className="px-6 py-3">
                 Função
               </th>
-              <th scope="col" className="px-6 py-3 text-right">
+              <th scope="col" className="px-6 py-3 text-left">
                 Modalidade
               </th>
-              <th scope="col" className="px-6 py-3 text-right">
+              <th scope="col" className="px-6 py-3 text-center">
                 Pago
               </th>
-              <th scope="col" className="px-6 py-3">
-                <span className="sr-only">Editar</span>
-              </th>
+              <th scope="col" className="px-6 py-3"></th>
+              <th scope="col" className="px-6 py-3"></th>
             </tr>
           </thead>
           <tbody>
