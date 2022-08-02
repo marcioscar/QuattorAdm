@@ -43,7 +43,11 @@ export default function Despesa() {
           Alterar de Despesas
         </h2>
 
-        <Form method="post" className="rounded-2xl bg-gray-200 p-6 w-96">
+        <Form
+          reloadDocument
+          method="post"
+          className="rounded-2xl bg-gray-200 p-6 w-96"
+        >
           <input hidden type="text" name="id" defaultValue={despesa?.id} />
           <label htmlFor="conta" className="text-blue-600 font-semibold">
             Conta

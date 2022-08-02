@@ -43,6 +43,36 @@ export const DespesasMes = async (ref: string) => {
     },
   });
 };
+export const DespesasFixas = async (ref: string) => {
+  return prisma.despesas.findMany({
+    where: {
+      referencia: {
+        equals: ref,
+      },
+      tipo: {
+        equals: "fixa",
+      },
+    },
+    orderBy: {
+      valor: "desc",
+    },
+  });
+};
+
+export const totTipoDespesas = async (ref: string) => {
+  const despesasTipo = await prisma.despesas.groupBy({
+    by: ["tipo"],
+    _sum: {
+      valor: true,
+    },
+    where: {
+      referencia: {
+        equals: ref,
+      },
+    },
+  });
+  return despesasTipo;
+};
 
 export const createDespesa = async (despesa: DespesaForm) => {
   const dt = new Date(despesa.data);
