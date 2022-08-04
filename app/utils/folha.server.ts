@@ -86,7 +86,15 @@ export const createFuncionario = async (funcionario: funcForm) => {
       funcao: funcionario.funcao,
       modalidade: funcionario.modalidade,
       conta: funcionario.conta,
-      salarios: [],
+      salarios: [
+        {
+          valor: 0,
+          fgts: 0,
+          ferias: 0,
+          decimo: 0,
+          pago: true,
+        },
+      ],
     },
   });
   return { newFuncionario };
