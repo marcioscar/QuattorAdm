@@ -63,7 +63,6 @@ export const createReceita = async (receita: ReceitaForm) => {
   const newReceita = await prisma.receitas.create({
     data: {
       referencia: referencia,
-      // referencia: `${dataAtual.getMonth() + 1}-${dataAtual.getFullYear()}`,
       centro: receita.centro,
       data: dataAtual,
       valor: parseFloat(receita.valor.replace(".", "").replace(",", ".")),
