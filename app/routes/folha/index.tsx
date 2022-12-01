@@ -6,6 +6,7 @@ import { Navbar } from "~/components/Navbar";
 import { getFuncionarios } from "~/utils/folha.server";
 import { Direita, Edit, Money } from "~/utils/icons";
 import type { tipoFunc } from "~/utils/types.server";
+import { FaCaretRight } from "react-icons/fa";
 
 export const loader: LoaderFunction = async ({ request }) => {
   const funcionarios = await getFuncionarios();
@@ -99,7 +100,7 @@ export default function Folha() {
                             minimumFractionDigits: 2,
                           })
                       }
-                      <Direita />
+                      <FaCaretRight className="mr-1 ml-1" />
                       <div className="text-green-600">
                         {
                           // @ts-ignore
@@ -111,6 +112,8 @@ export default function Folha() {
                             })
                         }
                       </div>
+                      <FaCaretRight className="mr-1 ml-1" />
+                      <div className="text-gray-600">{func.conta}</div>
                     </div>
                   </div>
                 </th>

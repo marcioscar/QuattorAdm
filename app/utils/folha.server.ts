@@ -43,6 +43,39 @@ export const groupSalarioAreas = async (ref: string) => {
     .value();
   return _.orderBy(total, ["valor"], ["desc"]);
 };
+export const SalarioAreas = async () => {
+  const modalidade = await prisma.folha.aggregateRaw({
+    pipeline: [
+      { $unwind: "$salarios" },
+      {
+        $group: {
+          _id: ["$salarios.referencia", "$modalidade"],
+          salario: { $sum: "$salarios.valor" },
+        },
+      },
+    ],
+  });
+  // @ts-ignore
+  const modal = modalidade.map((o: any) =>
+    Object.assign(
+      {},
+      o,
+      o._id[0] === "jan-2022" && { mes: 1 },
+      o._id[0] === "fev-2022" && { mes: 2 },
+      o._id[0] === "mar-2022" && { mes: 3 },
+      o._id[0] === "abr-2022" && { mes: 4 },
+      o._id[0] === "mai-2022" && { mes: 5 },
+      o._id[0] === "jun-2022" && { mes: 6 },
+      o._id[0] === "jul-2022" && { mes: 7 },
+      o._id[0] === "ago-2022" && { mes: 8 },
+      o._id[0] === "set-2022" && { mes: 9 },
+      o._id[0] === "out-2022" && { mes: 10 },
+      o._id[0] === "nov-2022" && { mes: 11 },
+      o._id[0] === "dez-2022" && { mes: 12 }
+    )
+  );
+  return _.orderBy(modal, ["mes"]);
+};
 
 export const groupSalario = async () => {
   return prisma.folha.aggregateRaw({

@@ -334,20 +334,28 @@ export default function Index() {
           </select>
         </div>
       </rec.Form>
-      <div className="container p-8 mx-auto">
-        <div className=" grid grid-cols-3 gap-4">
-          <div className="block shadow-md  rounded-md border border-gray-300 bg-gray text-center ">
-            <div className="border-gray-300 py-2 text-white bg-slate-600 flex justify-between px-4">
-              <p>Despesas Fixas</p>
-              <p className="font-mono  ">
+
+      <div className="flex justify-center space-x-10 m-4 flex-wrap">
+        <div className=" ">
+          <Bar options={optionsBar} data={dataBar} />
+          <div>
+            <Line options={optionsLine} data={data} />
+          </div>
+          <div className="mt-4 p-4 max-w-sm bg-stone-100 rounded-lg border shadow-md ">
+            <div className="flex justify-between items-center">
+              <div className="text-slate-500  font-semibold">
+                Despesas Fixas
+              </div>
+              <Arrow />
+              <div className="text-slate-500 font-sm ">
                 {DespesasFixasTotal?.toLocaleString("pt-br", {
                   minimumFractionDigits: 2,
                 })}
-              </p>
+              </div>
             </div>
-            <div className="h-44 p-2 bg-white">
-              <div className="overflow-y-auto  max-h-40 relative">
-                <table className="text-sm w-full  text-left text-slate-500 ">
+            <div className="border-t mt-2">
+              <div className="overflow-y-auto  max-h-56 relative">
+                <table className="text-sm  text-left text-slate-500 ">
                   <tbody>
                     {DespesasFixas?.map((desp: tipoDesp) => (
                       <tr key={desp.id} className="bg-white border-b ">
@@ -365,22 +373,24 @@ export default function Index() {
                 </table>
               </div>
             </div>
-            {/* <div className="border-t border-gray-300 p-2 text-gray-600">
-            2 days ago
-          </div> */}
           </div>
-          <div className="block shadow-md  rounded-md border border-gray-300 bg-gray text-center ">
-            <div className="border-gray-300 py-2 text-white bg-slate-600  flex justify-between px-4">
-              <p>Despesas Variáveis</p>
-              <p className="font-mono">
+        </div>
+        <div className=" ">
+          <div className="mt-4 p-4 max-w-sm bg-stone-100 rounded-lg border shadow-md ">
+            <div className="flex items-center justify-between">
+              <div className="text-slate-500   font-semibold">
+                Despesas Variáveis
+              </div>
+              <Arrow />
+              <div className="text-slate-500 font-sm ">
                 {DespesasVariavelTotal?.toLocaleString("pt-br", {
                   minimumFractionDigits: 2,
                 })}
-              </p>
+              </div>
             </div>
-            <div className="h-44 p-2 bg-white">
+            <div className="border-t mt-2">
               <div className="overflow-y-auto  max-h-56 relative">
-                <table className="text-sm w-full  text-left text-slate-500 ">
+                <table className="text-sm  text-left text-slate-500 ">
                   <tbody>
                     {DespesasVariaveis?.map((desp: tipoDesp) => (
                       <tr key={desp.id} className="bg-white border-b ">
@@ -398,55 +408,131 @@ export default function Index() {
                 </table>
               </div>
             </div>
-            {/* <div className="border-t border-gray-300 p-2 text-gray-600">
-            2 days ago
-          </div> */}
           </div>
-          <div className="block shadow-md  rounded-md border border-gray-300 bg-gray text-center ">
-            <div className="border-gray-300 py-2 text-white bg-slate-600 flex justify-between px-4">
-              <p>Despesas</p>
-              <p className="font-mono">
-                {totalDesp._sum.valor?.toLocaleString("pt-br", {
+        </div>
+        <div className=" ">
+          <div className="mt-4 p-4 max-w-sm bg-stone-100 rounded-lg border shadow-md ">
+            <div className="flex justify-between items-center mb-2">
+              <div className="text-slate-500 font-semibold">
+                Salários Diretos
+              </div>
+              <Arrow />
+              <div className="text-slate-500 font-sm ">
+                {SalDiretos?.toLocaleString("pt-br", {
                   minimumFractionDigits: 2,
                 })}
-              </p>
-            </div>
-            <div className="h-44 p-2 bg-white">
-              <div className="overflow-y-auto  max-h-40 relative">
-                <table className="text-sm w-full text-left text-slate-500 ">
-                  <tbody>
-                    {despMes?.map((desp: tipoDesp) => (
-                      <tr key={desp.id} className="bg-white border-b ">
-                        <th className="py-2 px-1 w-40  font-medium text-slate-500 whitespace-nowrap ">
-                          {desp.conta}
-                        </th>
-                        <td className="py-2 px-6 font-mono text-right">
-                          {desp.valor.toLocaleString("pt-br", {
-                            minimumFractionDigits: 2,
-                          })}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
               </div>
             </div>
-            {/* <div className="border-t border-gray-300 p-2 text-gray-600">
-            2 days ago
-          </div> */}
+            <div className="flex justify-between  mb-2 items-center">
+              <div className="text-slate-500  font-semibold">% Desp. Fixas</div>
+              <Arrow />
+              <div className="text-slate-500 font-sm ">{PercentFixa}</div>
+            </div>
+            <div className="flex justify-between items-center">
+              <div className="text-slate-500 mb-2  font-semibold">Ocupação</div>
+              <Arrow />
+              <div className="text-slate-500 font-sm ">1.100</div>
+            </div>
+            <div className="flex justify-between items-center">
+              <div className="text-slate-500  font-semibold">% Variável</div>
+              <Arrow />
+              <div className="text-slate-500 font-sm ">{PercentVariavel}</div>
+            </div>
           </div>
-          <div className="block shadow-md  rounded-md border border-gray-300 bg-gray text-center ">
-            <div className="border-gray-300 py-2 text-white bg-sky-600 flex justify-between px-4">
-              <p>Receitas</p>
-              <p className="font-mono">
+        </div>
+        <div className=" ">
+          <div className="mt-4 p-4 max-w-sm bg-stone-100 rounded-lg border shadow-md ">
+            <div className="flex justify-between items-center mb-2">
+              <div className="text-pink-500 font-semibold">Mensalidades</div>
+            </div>
+            <div className="flex justify-between  mb-2 items-center">
+              <div className="text-slate-500  font-semibold">S/ Lucro</div>
+              <Arrow />
+              <div className="text-slate-500 font-sm ">
+                {Mensalidade.toLocaleString("pt-br", {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}
+              </div>
+            </div>
+            <div className="flex justify-between items-center">
+              <div className="text-slate-500  font-semibold">com 6% Lucro</div>
+              <Arrow />
+              <div className="text-slate-500 font-sm ">
+                {Mensalidade6.toLocaleString("pt-br", {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className=" ">
+          <div className="mt-4 p-4 max-w-sm bg-stone-100 rounded-lg border shadow-md ">
+            <div className="flex justify-between items-center mb-2">
+              <div className="text-amber-500 font-semibold">
+                Previsão de Receitas
+              </div>
+            </div>
+            <div className="flex justify-between  mb-2 items-center">
+              <div className="text-slate-500  font-semibold">Previsão</div>
+              <Arrow />
+              <div className="text-slate-500 font-sm ">
+                {previsao.toLocaleString("pt-br", {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}
+              </div>
+            </div>
+            <div className="flex justify-between mb-2 items-center">
+              <div className="text-slate-500  font-semibold">Lucro</div>
+              <Arrow />
+              <div className="text-slate-500 font-sm ">
+                {Lucro.toLocaleString("pt-br", {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}
+              </div>
+            </div>
+            <div className="flex justify-between mb-2 items-center">
+              <div className="text-slate-500  font-semibold">
+                Ponto de Equilíbrio
+              </div>
+              <Arrow />
+              <div className="text-slate-500 font-sm ">
+                {PontoEquilibrio.toLocaleString("pt-br", {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}
+              </div>
+            </div>
+            <div className="flex justify-between items-center">
+              <div className="text-slate-500  font-semibold">
+                Ponto de Equilíbrio QTD
+              </div>
+              <Arrow />
+              <div className="text-slate-500 font-sm ">
+                {PontoEquilibrioQtd.toLocaleString("pt-br", {
+                  maximumFractionDigits: 0,
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className=" ">
+          <div className="mt-4 p-4 max-w-sm bg-stone-100 rounded-lg border shadow-md ">
+            <div className="flex items-center justify-between">
+              <div className="text-blue-500  font-semibold">Receitas</div>
+              <Arrow />
+              <div className="text-blue-500 font-sm ">
                 {totalRec._sum.valor?.toLocaleString("pt-br", {
                   minimumFractionDigits: 2,
                 })}
-              </p>
+              </div>
             </div>
-            <div className="h-44 p-2 bg-white">
-              <div className="overflow-y-auto  max-h-40 relative">
-                <table className="text-sm w-full  text-left text-slate-500 ">
+            <div className="border-t mt-2">
+              <div className="overflow-y-auto  max-h-56 relative">
+                <table className="text-sm  text-left text-slate-500 ">
                   <tbody>
                     {recMes?.map((rec: tipoRec) => (
                       <tr key={rec.id} className="bg-white border-b ">
@@ -464,24 +550,57 @@ export default function Index() {
                 </table>
               </div>
             </div>
-            {/* <div className="border-t border-gray-300 p-2 text-gray-600">
-            2 days ago
-          </div> */}
           </div>
-          <div className="block shadow-md  rounded-md border border-gray-300 bg-gray text-center ">
-            <div className="border-gray-300 py-2 text-white bg-sky-600  flex justify-between px-4">
-              <p>Salários</p>
-              <p className="font-mono">
+        </div>
+        <div className=" ">
+          <div className="mt-4 p-4 max-w-sm bg-stone-100  rounded-lg border shadow-md ">
+            <div className="flex items-center justify-between">
+              <div className="text-orange-500  font-semibold">Despesas</div>
+              <Arrow />
+              <div className="text-orange-500 font-sm ">
+                {totalDesp._sum.valor?.toLocaleString("pt-br", {
+                  minimumFractionDigits: 2,
+                })}
+              </div>
+            </div>
+            <div className="border-t mt-2">
+              <div className="overflow-y-auto  max-h-56 relative">
+                <table className="text-sm text-left text-slate-500 ">
+                  <tbody>
+                    {despMes?.map((desp: tipoDesp) => (
+                      <tr key={desp.id} className="bg-white border-b ">
+                        <th className="py-2 px-1 w-40  font-medium text-slate-900 whitespace-nowrap ">
+                          {desp.conta}
+                        </th>
+                        <td className="py-2 px-6 font-mono text-right">
+                          {desp.valor.toLocaleString("pt-br", {
+                            minimumFractionDigits: 2,
+                          })}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className=" ">
+          <div className="mt-4 p-4 max-w-sm bg-stone-100 rounded-lg border shadow-md ">
+            <div className="flex items-center justify-between">
+              <div className="text-green-500  font-semibold">Salários</div>
+              <Arrow />
+              <div className="text-green-500 font-sm ">
                 {TotSalarioMes.map(
                   (t: { salario: any }) => t.salario
                 ).toLocaleString("pt-br", {
                   minimumFractionDigits: 2,
                 })}
-              </p>
+              </div>
             </div>
-            <div className="h-44 p-2 bg-white">
-              <div className="overflow-y-auto  max-h-40 relative">
-                <table className="text-sm w-full  text-left text-slate-500 ">
+            <div className="border-t mt-2">
+              <div className="overflow-y-auto  max-h-56 relative">
+                <table className="text-sm text-left text-slate-500 ">
                   <tbody>
                     {TotSalAreas?.map((sal: any) => (
                       <tr key={sal.mod} className="bg-white border-b ">
@@ -500,164 +619,6 @@ export default function Index() {
                 </table>
               </div>
             </div>
-          </div>
-          <div className="block shadow-md  rounded-md border border-gray-300 bg-gray text-center ">
-            <div className="border-gray-300 py-2 text-white bg-sky-600  flex justify-center items-center px-4">
-              <p>Índices</p>
-            </div>
-            <div className="h-44 p-2 bg-white">
-              <div className="overflow-y-auto  max-h-40 relative">
-                <table className="text-sm w-full  text-left text-slate-500 ">
-                  <tbody>
-                    <tr className="bg-white border-b ">
-                      <th className="py-2 px-1 w-40  font-medium text-slate-900 whitespace-nowrap ">
-                        Salários Diretos
-                      </th>
-                      <td className="py-2 px-6  font-mono text-right">
-                        {SalDiretos?.toLocaleString("pt-br", {
-                          minimumFractionDigits: 2,
-                        })}
-                      </td>
-                    </tr>
-                    <tr className="bg-white border-b ">
-                      <th className="py-2 px-1 w-40  font-medium text-slate-900 whitespace-nowrap ">
-                        % Desp. Fixas
-                      </th>
-                      <td className="py-2 px-6  font-mono text-right">
-                        <div className="text-slate-500 font-sm ">
-                          {PercentFixa}
-                        </div>
-                      </td>
-                    </tr>
-                    <tr className="bg-white border-b ">
-                      <th className="py-2 px-1 w-40  font-medium text-slate-900 whitespace-nowrap ">
-                        % Variável
-                      </th>
-                      <td className="py-2 px-6  font-mono text-right">
-                        <div className="text-slate-500 font-sm ">
-                          {PercentVariavel}
-                        </div>
-                      </td>
-                    </tr>
-                    <tr className="bg-white border-b ">
-                      <th className="py-2 px-1 w-40  font-medium text-slate-900 whitespace-nowrap ">
-                        Ocupação
-                      </th>
-                      <td className="py-2 px-6  font-mono text-right">
-                        <div className="text-slate-500 font-sm ">1.100</div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-          <div className="block shadow-md  rounded-md border border-gray-300 bg-gray text-center ">
-            <div className="border-gray-300  py-2 text-white bg-emerald-600  flex justify-center items-center  px-4">
-              <p>Previsão de Receitas</p>
-            </div>
-            <div className="h-44 p-2 bg-white">
-              <div className="overflow-y-auto  max-h-40 relative">
-                <table className="text-sm w-full  text-left text-slate-500 ">
-                  <tbody>
-                    <tr className="bg-white border-b ">
-                      <th className="py-2 px-1 w-40  font-medium text-slate-900 whitespace-nowrap ">
-                        Previsão
-                      </th>
-                      <td className="py-2 px-6  font-mono text-right">
-                        {previsao.toLocaleString("pt-br", {
-                          minimumFractionDigits: 2,
-                          maximumFractionDigits: 2,
-                        })}
-                      </td>
-                    </tr>
-                    <tr className="bg-white border-b ">
-                      <th className="py-2 px-1 w-40  font-medium text-slate-900 whitespace-nowrap ">
-                        Lucro
-                      </th>
-                      <td className="py-2 px-6  font-mono text-right">
-                        <div className="text-slate-500 font-sm ">
-                          {Lucro.toLocaleString("pt-br", {
-                            minimumFractionDigits: 2,
-                            maximumFractionDigits: 2,
-                          })}
-                        </div>
-                      </td>
-                    </tr>
-                    <tr className="bg-white border-b ">
-                      <th className="py-2 px-1 w-40  font-medium text-slate-900 whitespace-nowrap ">
-                        Ponto de Equilíbrio
-                      </th>
-                      <td className="py-2 px-6  font-mono text-right">
-                        <div className="text-slate-500 font-sm ">
-                          {PontoEquilibrio.toLocaleString("pt-br", {
-                            minimumFractionDigits: 2,
-                            maximumFractionDigits: 2,
-                          })}
-                        </div>
-                      </td>
-                    </tr>
-                    <tr className="bg-white border-b ">
-                      <th className="py-2 px-1 w-40  font-medium text-slate-900 whitespace-nowrap ">
-                        Ponto de Equilíbrio Quantidade
-                      </th>
-                      <td className="py-2 px-6  font-mono text-right">
-                        <div className="text-slate-500 font-sm ">
-                          {PontoEquilibrioQtd.toLocaleString("pt-br", {
-                            maximumFractionDigits: 0,
-                          })}
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-          <div className="block shadow-md  rounded-md border border-gray-300 bg-gray text-center ">
-            <div className="border-gray-300  py-2 text-white bg-emerald-600  flex justify-center items-center  px-4">
-              <p>Mensalidades</p>
-            </div>
-            <div className="h-44 p-2 bg-white">
-              <div className="overflow-y-auto  max-h-40 relative">
-                <table className="text-sm w-full  text-left text-slate-500 ">
-                  <tbody>
-                    <tr className="bg-white border-b ">
-                      <th className="py-2 px-1 w-40  font-medium text-slate-900 whitespace-nowrap ">
-                        Sem Lucro
-                      </th>
-                      <td className="py-2 px-6  font-mono text-right">
-                        {Mensalidade.toLocaleString("pt-br", {
-                          minimumFractionDigits: 2,
-                          maximumFractionDigits: 2,
-                        })}
-                      </td>
-                    </tr>
-                    <tr className="bg-white border-b ">
-                      <th className="py-2 px-1 w-40  font-medium text-slate-900 whitespace-nowrap ">
-                        Lucro de 6%
-                      </th>
-                      <td className="py-2 px-6  font-mono text-right">
-                        <div className="text-slate-500 font-sm ">
-                          {Mensalidade6.toLocaleString("pt-br", {
-                            minimumFractionDigits: 2,
-                            maximumFractionDigits: 2,
-                          })}
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="grid grid-cols-3 gap-4">
-          <div className="col-span-2">
-            <Bar options={optionsBar} data={dataBar} />
-          </div>
-          <div>
-            <Line options={optionsLine} data={data} />
           </div>
         </div>
       </div>
