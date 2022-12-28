@@ -1,13 +1,15 @@
 import type { LoaderFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
-import { Navbar } from "~/components/Navbar";
+import { Link, useLoaderData, useNavigate } from "@remix-run/react";
+
 import { getDespesa, updateDespesa } from "~/utils/despesas.server";
 
 import { Form, useTransition } from "@remix-run/react";
 import type { ActionFunction } from "@remix-run/node";
 import { redirect } from "@remix-run/node";
 import { deleteDespesa } from "../../utils/despesas.server";
+import Modal from "~/components/Modal";
+import { RiCloseCircleFill } from "react-icons/ri";
 
 export const loader: LoaderFunction = async ({ request, params }) => {
   const despesa = await getDespesa(params.despesa as string);
@@ -32,16 +34,25 @@ export const action: ActionFunction = async ({ request }) => {
 };
 
 export default function Despesa() {
+  const navigate = useNavigate();
   const transition = useTransition();
+  function closeHandler() {
+    navigate("..");
+  }
   const { despesa } = useLoaderData();
 
   return (
-    <>
-      <Navbar />
+    <Modal onClose={closeHandler}>
+      {/* <Navbar /> */}
       <div className="h-full justify-center items-center flex flex-col gap-y-4">
-        <h2 className="text-2xl font-extrabold text-slate-700">
-          Alterar de Despesas
-        </h2>
+        <div className="flex items-center space-x-4">
+          <h2 className="text-2xl font-extrabold text-slate-700">
+            Alterar de Despesas
+          </h2>
+          <Link to=".." className="">
+            <RiCloseCircleFill className=" text-red-500  w-8 h-8 " />
+          </Link>
+        </div>
 
         <Form
           reloadDocument
@@ -116,6 +127,6 @@ export default function Despesa() {
           </div>
         </Form>
       </div>
-    </>
+    </Modal>
   );
 }
