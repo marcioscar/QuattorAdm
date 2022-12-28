@@ -1,6 +1,5 @@
 // app/routes/login.tsx
 
-import { Navbar } from "~/components/Navbar";
 import Cleave from "cleave.js/react";
 import type { ActionFunction } from "@remix-run/node";
 import { redirect } from "@remix-run/node";

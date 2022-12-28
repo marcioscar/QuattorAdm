@@ -5,7 +5,8 @@ import Cleave from "cleave.js/react";
 import type { ActionFunction } from "@remix-run/node";
 import { redirect } from "@remix-run/node";
 import { createReceita } from "~/utils/receitas.server";
-import { Form, useTransition } from "@remix-run/react";
+import { Form, Link, useNavigate, useTransition } from "@remix-run/react";
+import Modal from "~/components/Modal";
 
 export const action: ActionFunction = async ({ request }) => {
   const form = await request.formData();
@@ -15,10 +16,14 @@ export const action: ActionFunction = async ({ request }) => {
   return redirect("/receitas");
 };
 export default function New() {
+  const navigate = useNavigate();
   const transition = useTransition();
+  function closeHandler() {
+    navigate("..");
+  }
   return (
-    <>
-      <Navbar />
+    <Modal onClose={closeHandler}>
+      {/* <Navbar /> */}
       <div className="h-full justify-center items-center flex flex-col gap-y-4">
         <h2 className="text-2xl font-extrabold text-slate-700">
           Cadastro de Receitas
@@ -55,7 +60,7 @@ export default function New() {
             defaultValue={new Date().toISOString().substring(0, 10)}
           />
 
-          <div className="w-full text-center">
+          <div className="w-full space-x-4 text-center">
             <button
               type="submit"
               className="rounded-xl mt-2 bg-blue-500 text-white px-3 py-2 font-semibold transition duration-300 ease-in-out hover:bg-yellow-400 hover:-translate-y-1"
@@ -65,9 +70,12 @@ export default function New() {
                 ? "Cadastrando..."
                 : "Cadastrar"}
             </button>
+            <Link to=".." className="rounded-xl mt-2 bg-yellow-500  px-3 py-2 ">
+              Cancelar
+            </Link>
           </div>
         </Form>
       </div>
-    </>
+    </Modal>
   );
 }

@@ -1,12 +1,15 @@
 import type { LoaderFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { Link, useLoaderData, useNavigate } from "@remix-run/react";
 import { Navbar } from "~/components/Navbar";
 import { getReceita, updateReceita } from "~/utils/receitas.server";
 import { Form, useTransition } from "@remix-run/react";
 import type { ActionFunction } from "@remix-run/node";
 import { redirect } from "@remix-run/node";
 import { deleteReceita } from "../../utils/receitas.server";
+import Modal from "~/components/Modal";
+
+import { RiCloseCircleFill } from "react-icons/ri";
 
 export const loader: LoaderFunction = async ({ request, params }) => {
   const receita = await getReceita(params.receita as string);
@@ -30,16 +33,24 @@ export const action: ActionFunction = async ({ request }) => {
 };
 
 export default function Receita() {
+  const navigate = useNavigate();
   const transition = useTransition();
+  function closeHandler() {
+    navigate("..");
+  }
   const { receita } = useLoaderData();
 
   return (
-    <>
-      <Navbar />
+    <Modal onClose={closeHandler}>
       <div className="h-full justify-center items-center flex flex-col gap-y-4">
-        <h2 className="text-2xl font-extrabold text-slate-700">
-          Alterar de Receitas
-        </h2>
+        <div className="flex items-center space-x-4">
+          <h2 className="text-2xl font-extrabold text-slate-700">
+            Alterar de Receita
+          </h2>
+          <Link to=".." className="">
+            <RiCloseCircleFill className=" text-red-500  w-8 h-8 " />
+          </Link>
+        </div>
 
         <Form method="post" className="rounded-2xl bg-gray-200 p-6 w-96">
           <input hidden type="text" name="id" defaultValue={receita?.id} />
@@ -98,6 +109,6 @@ export default function Receita() {
           </div>
         </Form>
       </div>
-    </>
+    </Modal>
   );
 }
