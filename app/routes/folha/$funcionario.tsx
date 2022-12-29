@@ -1,13 +1,21 @@
 import type { ActionFunction, LoaderFunction } from "@remix-run/node";
 import { redirect } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import { Form, useLoaderData, useTransition } from "@remix-run/react";
+import {
+  Form,
+  Link,
+  useLoaderData,
+  useNavigate,
+  useTransition,
+} from "@remix-run/react";
 import { Navbar } from "~/components/Navbar";
+import Modal from "~/components/Modal";
 import {
   getFuncionario,
   updateFuncionario,
   deleteFuncionario,
 } from "~/utils/folha.server";
+import { RiCloseCircleFill } from "react-icons/ri";
 
 export const loader: LoaderFunction = async ({ request, params }) => {
   const funcionario = await getFuncionario(params.funcionario as string);
@@ -29,13 +37,23 @@ export const action: ActionFunction = async ({ request }) => {
   return redirect("/folha");
 };
 export default function Receita() {
+  const navigate = useNavigate();
   const transition = useTransition();
+  function closeHandler() {
+    navigate("..");
+  }
   const { funcionario } = useLoaderData();
   return (
-    <>
-      <Navbar />
+    <Modal onClose={closeHandler}>
       <div className="h-full justify-center items-center flex flex-col gap-y-4">
-        <h2 className="text-2xl font-extrabold text-slate-700">Funcionário</h2>
+        <div className="flex items-center space-x-4">
+          <h2 className="text-2xl font-extrabold text-slate-700">
+            Funcionario
+          </h2>
+          <Link to=".." className="">
+            <RiCloseCircleFill className=" text-red-500  w-8 h-8 " />
+          </Link>
+        </div>
         <Form method="post" className="rounded-2xl bg-stone-200 p-6 w-96">
           <input hidden type="text" name="id" defaultValue={funcionario?.id} />
           <label htmlFor="nome" className="text-blue-600 font-semibold">
@@ -118,6 +136,6 @@ export default function Receita() {
           </div>
         </Form>
       </div>
-    </>
+    </Modal>
   );
 }
