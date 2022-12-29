@@ -24,7 +24,7 @@ export default function Folha() {
       <Navbar />
       <Outlet />
       <h1 className="flex  justify-center font-bold text-slate-500 text-xl">
-        FOLHA DE PAGAMENTO fora
+        FOLHA DE PAGAMENTO
       </h1>
       <div className="flex justify-around items-center">
         <div className="relative w-1/4">
