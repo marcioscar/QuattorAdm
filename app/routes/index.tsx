@@ -145,18 +145,18 @@ export default function Index() {
     Object.assign(
       {},
       o,
-      o._id === "jan-2022" && { mes: 1 },
-      o._id === "fev-2022" && { mes: 2 },
-      o._id === "mar-2022" && { mes: 3 },
-      o._id === "abr-2022" && { mes: 4 },
-      o._id === "mai-2022" && { mes: 5 },
-      o._id === "jun-2022" && { mes: 6 },
-      o._id === "jul-2022" && { mes: 7 },
-      o._id === "ago-2022" && { mes: 8 },
-      o._id === "set-2022" && { mes: 9 },
-      o._id === "out-2022" && { mes: 10 },
-      o._id === "nov-2022" && { mes: 11 },
-      o._id === "dez-2022" && { mes: 12 }
+      o._id === "jan-2023" && { mes: 1 },
+      o._id === "fev-2023" && { mes: 2 },
+      o._id === "mar-2023" && { mes: 3 },
+      o._id === "abr-2023" && { mes: 4 },
+      o._id === "mai-2023" && { mes: 5 },
+      o._id === "jun-2023" && { mes: 6 },
+      o._id === "jul-2023" && { mes: 7 },
+      o._id === "ago-2023" && { mes: 8 },
+      o._id === "set-2023" && { mes: 9 },
+      o._id === "out-2023" && { mes: 10 },
+      o._id === "nov-2023" && { mes: 11 },
+      o._id === "dez-2023" && { mes: 12 }
     )
   );
   ChartJS.register(
@@ -325,12 +325,12 @@ export default function Index() {
             <option value="abr-2023">Abril - 2023</option>
             <option value="mai-2023">Maio - 2023</option>
             <option value="jun-2023">Junho - 2023</option>
-            <option value="jul-2022">Julho - 2022</option>
-            <option value="ago-2022">Agosto - 2022</option>
-            <option value="set-2022">Setembro - 2022</option>
-            <option value="out-2022">Outubro - 2022</option>
-            <option value="nov-2022">Novembro - 2022</option>
-            <option value="dez-2022">Dezembro - 2022</option>
+            <option value="jul-2023">Julho - 2023</option>
+            <option value="ago-2023">Agosto - 2023</option>
+            <option value="set-2023">Setembro - 2023</option>
+            <option value="out-2023">Outubro - 2023</option>
+            <option value="nov-2023">Novembro - 2023</option>
+            <option value="dez-2023">Dezembro - 2023</option>
           </select>
         </div>
       </rec.Form>
