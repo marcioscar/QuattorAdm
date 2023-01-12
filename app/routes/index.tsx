@@ -206,11 +206,6 @@ export default function Index() {
 
   const labels = _.orderBy(TotalSalariosMes, "mes").map((dt: any) => dt._id);
 
-  console.log(
-    _.filter(areas, ["_id[1]", "geral"]).map((m: any) => [m.salario, m.mes])
-  );
-  // console.log(areas);
-
   const data = {
     labels,
     datasets: [

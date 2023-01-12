@@ -60,18 +60,18 @@ export const SalarioAreas = async () => {
     Object.assign(
       {},
       o,
-      o._id[0] === "jan-2022" && { mes: 1 },
-      o._id[0] === "fev-2022" && { mes: 2 },
-      o._id[0] === "mar-2022" && { mes: 3 },
-      o._id[0] === "abr-2022" && { mes: 4 },
-      o._id[0] === "mai-2022" && { mes: 5 },
-      o._id[0] === "jun-2022" && { mes: 6 },
-      o._id[0] === "jul-2022" && { mes: 7 },
-      o._id[0] === "ago-2022" && { mes: 8 },
-      o._id[0] === "set-2022" && { mes: 9 },
-      o._id[0] === "out-2022" && { mes: 10 },
-      o._id[0] === "nov-2022" && { mes: 11 },
-      o._id[0] === "dez-2022" && { mes: 12 }
+      o._id[0] === "jan-2023" && { mes: 1 },
+      o._id[0] === "fev-2023" && { mes: 2 },
+      o._id[0] === "mar-2023" && { mes: 3 },
+      o._id[0] === "abr-2023" && { mes: 4 },
+      o._id[0] === "mai-2023" && { mes: 5 },
+      o._id[0] === "jun-2023" && { mes: 6 },
+      o._id[0] === "jul-2023" && { mes: 7 },
+      o._id[0] === "ago-2023" && { mes: 8 },
+      o._id[0] === "set-2023" && { mes: 9 },
+      o._id[0] === "out-2023" && { mes: 10 },
+      o._id[0] === "nov-2023" && { mes: 11 },
+      o._id[0] === "dez-2023" && { mes: 12 }
     )
   );
   return _.orderBy(modal, ["mes"]);
