@@ -1,4 +1,4 @@
-import { NavLink } from "@remix-run/react";
+import { Form, NavLink } from "@remix-run/react";
 
 export function Navbar() {
   const activeClassName = "text-orange-500";
@@ -45,6 +45,31 @@ export function Navbar() {
           >
             FOLHA
           </NavLink>
+          <NavLink
+            to="/auth"
+            className={({ isActive }) =>
+              isActive ? activeClassName : undefined
+            }
+          >
+            NOVO USUÁRIO
+          </NavLink>
+        </div>
+        <div className="flex space-x-4 ">
+          <div className=" text-white bg-emerald-600 hover:bg-emerald-800   rounded-lg text-sm px-5 py-2.5 ">
+            <NavLink
+              to="/novo"
+              className={({ isActive }) =>
+                isActive ? activeClassName : undefined
+              }
+            >
+              NOVO USUÁRIO
+            </NavLink>
+          </div>
+          <Form method="post" action="/logout" id="logout-form">
+            <button className=" text-white bg-amber-600 hover:bg-amber-800   rounded-lg text-sm px-5 py-2.5 ">
+              Sair
+            </button>
+          </Form>
         </div>
       </div>
     </nav>

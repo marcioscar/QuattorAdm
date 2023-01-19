@@ -31,8 +31,11 @@ import {
   Legend,
 } from "chart.js";
 import { Line, Bar } from "react-chartjs-2";
+import { requireUserSession } from "~/utils/auth.server";
 
 export const loader: LoaderFunction = async ({ request, params }) => {
+  await requireUserSession(request);
+  console.log(await requireUserSession(request));
   const dataAtual = format(new Date(), "MMM-yyyy", { locale: pt });
   const url = new URL(request.url);
   const par = url.searchParams.get("rec");
@@ -329,6 +332,7 @@ export default function Index() {
           </select>
         </div>
       </rec.Form>
+
       <div className="container p-8 mx-auto">
         <div className=" grid grid-cols-3 gap-4">
           <div className="block shadow-md  rounded-md border border-gray-300 bg-gray text-center ">

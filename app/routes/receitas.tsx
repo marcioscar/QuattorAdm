@@ -6,8 +6,10 @@ import { Navbar } from "~/components/Navbar";
 import type { tipoRec } from "~/utils/types.server";
 // import { format } from "date-fns";
 import { getReceitas } from "~/utils/receitas.server";
+import { requireUserSession } from "~/utils/auth.server";
 
 export const loader: LoaderFunction = async ({ request }) => {
+  await requireUserSession(request);
   const receitas = await getReceitas();
   return json({ receitas });
 };

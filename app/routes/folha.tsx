@@ -7,8 +7,10 @@ import { getFuncionarios } from "~/utils/folha.server";
 import { Edit, Money } from "~/utils/icons";
 import type { tipoFunc } from "~/utils/types.server";
 import { FaCaretRight } from "react-icons/fa";
+import { requireUserSession } from "~/utils/auth.server";
 
 export const loader: LoaderFunction = async ({ request }) => {
+  await requireUserSession(request);
   const funcionarios = await getFuncionarios();
   return json({ funcionarios });
 };

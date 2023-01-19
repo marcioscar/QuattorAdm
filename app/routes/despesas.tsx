@@ -6,8 +6,10 @@ import { getDespesas } from "~/utils/despesas.server";
 import { format } from "date-fns";
 import type { tipoDesp } from "~/utils/types.server";
 import { useState } from "react";
+import { requireUserSession } from "~/utils/auth.server";
 
 export const loader: LoaderFunction = async ({ request }) => {
+  await requireUserSession(request);
   const despesas = await getDespesas();
   return json({ despesas });
 };
