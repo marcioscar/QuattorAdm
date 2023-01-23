@@ -1,10 +1,13 @@
 // @ts-nocheck
-import { redirect } from "@remix-run/node";
+
 import type { ActionFunction } from "@remix-run/node";
 import AuthForm from "~/components/auth/AuthForm";
 import { login, signup } from "~/utils/auth.server";
+import { useActionData } from "@remix-run/react";
 
 export default function AuthPage() {
+  const errors = useActionData<typeof action>();
+  console.log(errors);
   return (
     <section className="bg-stone-700 dark:bg-gray-900">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">

@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { prisma } from "./prisma.server";
-import { createCookieSessionStorage, redirect } from "@remix-run/node";
+import { createCookieSessionStorage, redirect, json } from "@remix-run/node";
 import { hash, compare } from "bcryptjs";
 
 const SESSION_SECRET = process.env.SESSION_SECRET;
@@ -71,15 +71,23 @@ export async function signup({ email, password }) {
 export async function login({ email, password }) {
   const usuarioExiste = await prisma.user.findFirst({ where: { email } });
   if (!usuarioExiste) {
-    const error = new Error("Usuário não existe");
-    error.status = 401;
-    throw error;
+    const errors = {};
+    errors.email = "Nome ou senha Inválidos !!!";
+
+    // const error = new Error("Usuário não existe");
+    console.log(errors);
+
+    return json(errors, { status: 401 });
   }
   const passwordCorrect = await compare(password, usuarioExiste.password);
   if (!passwordCorrect) {
-    const error = new Error("Usuário não existe");
-    error.status = 401;
-    throw error;
+    const errors = {};
+    errors.email = "Nome ou senha Inválidos !!!";
+
+    // const error = new Error("Usuário não existe");
+    console.log(errors);
+
+    return json(errors, { status: 401 });
   }
   console.log(usuarioExiste.id);
   return createUserSession(usuarioExiste.id, "/");

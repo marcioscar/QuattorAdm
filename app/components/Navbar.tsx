@@ -45,14 +45,6 @@ export function Navbar() {
           >
             FOLHA
           </NavLink>
-          <NavLink
-            to="/auth"
-            className={({ isActive }) =>
-              isActive ? activeClassName : undefined
-            }
-          >
-            NOVO USUÁRIO
-          </NavLink>
         </div>
         <div className="flex space-x-4 ">
           <div className=" text-white bg-emerald-600 hover:bg-emerald-800   rounded-lg text-sm px-5 py-2.5 ">
